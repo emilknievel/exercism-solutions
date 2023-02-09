@@ -13,7 +13,7 @@
   (contains? birds 0))
 
 (defn n-days-count [birds n]
-  )
+  (reduce + (take n birds)))
 
 (defn busy-days [birds]
   )
