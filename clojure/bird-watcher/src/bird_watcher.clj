@@ -9,6 +9,10 @@
 (defn inc-bird [birds]
   (conj (pop birds) (inc (today birds))))
 
+;; alternative solution using assoc
+;; (defn inc-bird [birds]
+;;   (assoc birds (- (count birds) 1) (inc (today birds))))
+
 (defn day-without-birds? [birds]
   (true? (some zero? birds)))
 
