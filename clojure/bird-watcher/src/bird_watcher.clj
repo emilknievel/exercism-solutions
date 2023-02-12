@@ -10,14 +10,16 @@
   (conj (pop birds) (inc (today birds))))
 
 (defn day-without-birds? [birds]
-    (true? (some zero? birds)))
+  (true? (some zero? birds)))
 
 (defn n-days-count [birds n]
   (reduce + (take n birds)))
 
+(defn busy-day? [birds-seen]
+  (> birds-seen 4))
+
 (defn busy-days [birds]
-  (count (filter (fn [item] (> item 4))
-                 birds)))
+  (count (filter busy-day? birds)))
 
 (defn odd-week? [birds]
   (= [1 0 1 0 1 0 1] birds))
