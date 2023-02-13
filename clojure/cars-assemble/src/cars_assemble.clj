@@ -17,4 +17,4 @@
 (defn working-items
   "Calculates how many working cars are produced per minute"
   [speed]
-  )
+  (int(/ (production-rate speed) 60)))
