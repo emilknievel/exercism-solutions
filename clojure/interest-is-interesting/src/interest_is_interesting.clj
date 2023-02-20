@@ -8,10 +8,12 @@
     5000 1.621
     2.475))
 
-;; FIXME: Seems to use the wrong amount of decimals when calculating
 (defn annual-balance-update
   [balance]
-  (+ balance (* balance (bigdec (/ (interest-rate balance) 100)))))
+  (+ balance
+     (* balance
+        (/ (bigdec (Math/abs (interest-rate balance)))
+           100M))))
 
 (defn donate-big-amount
   [balance tax-free-percentage]
