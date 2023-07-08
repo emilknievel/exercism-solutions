@@ -76,3 +76,6 @@ $RECYCLE.BIN/
 *.lnk
 
 # End of https://www.toptal.com/developers/gitignore/api/macos,linux,windows,exercism
+
+# Ignore .exercism folder which contains sensitive data
+**/.exercism/
