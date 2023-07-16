@@ -2,27 +2,29 @@
 #include <math.h>
 
 bool is_armstrong_number(int candidate) {
-    int no_digits = 0;
-    int candidate_copy = candidate;
+    int digit_count = calculate_digit_count(candidate);
+    int sum = summarize_pow(candidate, digit_count);
 
-    // find out the number of digits
-    while (candidate_copy > 0) {
-        candidate_copy /= 10;
-        ++no_digits;
-    }
-
-    int iteration = 0;
-    int sum = 0;
-    candidate_copy = candidate;
-
-    // summarize
-    while (candidate_copy > 0) {
-        int digit = candidate_copy % 10;
-        candidate_copy /= 10;
-        sum += pow(digit, no_digits);
-        ++iteration;
-    }
-
-    // compare
     return sum == candidate;
+}
+
+int calculate_digit_count(int candidate) {
+    int digit_count = 0;
+
+    for (int i = candidate; i > 0; i /= 10) {
+        ++digit_count;
+    }
+
+    return digit_count;
+}
+
+int summarize_pow(int num, int exponent) {
+    int sum = 0;
+
+    for (int i = num; i > 0; i /= 10) {
+        int digit = i % 10;
+        sum += pow(digit, exponent);
+    }
+
+    return sum;
 }
