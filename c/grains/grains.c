@@ -3,15 +3,9 @@
 #include <stdint.h>
 
 uint64_t square(uint8_t index) {
-    return (index == 0 || index > 64) ? 0 : pow(2, index - 1);
+    return (index > 0 && index < 65) ? 1ul << (index - 1) : 0;
 }
 
 uint64_t total(void) {
-    uint64_t sum = 0;
-
-    for (int i = 1; i < 65; ++i) {
-        sum += square(i);
-    }
-
-    return sum;
+    return (((1ull << 63) - 1) << 1) + 1;
 }
