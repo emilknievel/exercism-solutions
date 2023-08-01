@@ -23,8 +23,14 @@ export function needsLicense(kind) {
  * @returns {string} a sentence of advice which option to choose
  */
 export function chooseVehicle(option1, option2) {
-  const suffix = 'is clearly the better choice.';
-  return option1 < option2 ? `${option1} ${suffix}` : `${option2} ${suffix}`;
+  let choice = null;
+  if (option1 < option2) {
+    choice = option1;
+  } else {
+    choice = option2;
+  }
+
+  return choice + ' is clearly the better choice.';
 }
 
 /**
@@ -36,10 +42,11 @@ export function chooseVehicle(option1, option2) {
  * @returns {number} expected resell price in the dealership
  */
 export function calculateResellPrice(originalPrice, age) {
-  let resellPrice = originalPrice * 0.8;
-
-  if (age >= 3) resellPrice = originalPrice * 0.7;
-  if (age > 10) resellPrice = originalPrice * 0.5;
-
-  return resellPrice;
+  if (age < 3) {
+    return originalPrice * 0.8;
+  } else if (age > 10) {
+    return originalPrice * 0.5;
+  } else {
+    return originalPrice * 0.7;
+  }
 }
