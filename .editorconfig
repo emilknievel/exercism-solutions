@@ -14,3 +14,4 @@ indent_style = tab
 [*.{js,jsx,ts,tsx,vue}]
 indent_style = space
 indent_size = 2
+quote_type = single
