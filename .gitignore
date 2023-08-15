@@ -79,3 +79,5 @@ $RECYCLE.BIN/
 
 # Ignore .exercism folder which contains sensitive data
 **/.exercism/
+
+**/bun.lockb
