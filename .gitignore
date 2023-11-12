@@ -81,3 +81,6 @@ $RECYCLE.BIN/
 **/.exercism/
 
 **/bun.lockb
+
+# Ignore READMES and HINTS, etc.
+*.md
