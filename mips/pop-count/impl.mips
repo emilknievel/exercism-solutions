@@ -7,4 +7,20 @@
 .globl egg_count
 
 egg_count:
-        jr $ra
+        li      $t0, 0               # 0 eggs initially
+        bltz    $a0, handle_negative # handle negative integer
+
+count_loop:
+        beq     $a0, $zero, result   # end loop when value is 0
+        andi    $t1, $a0, 1          # value of lsb
+        add     $t0, $t0, $t1        # + 1 if lsb = 1
+        srl     $a0, $a0, 1          # shift input right 1 bit
+        j       count_loop           # go to next iteration
+
+handle_negative:
+        sub     $a0, $zero, $a0      # negative number, negate the bits!
+                                     # $a0 = 0 - $a0
+        b       count_loop           # count bits
+result:
+        move    $v0, $t0
+        jr      $ra
