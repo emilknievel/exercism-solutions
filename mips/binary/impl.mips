@@ -7,4 +7,16 @@
 .globl binary_convert
 
 binary_convert:
+	li	$v0, 0		# initialize $v0 to 0
+
+conversion_loop:
+	lbu	$t0, 0($a0)	# load next byte from input
+	beqz	$t0, done	# if $t0 is 0, we're done
+	subi	$t0, $t0, 48	# subtract 48 from $t0 (convert ASCII to int)
+	sll	$v0, $v0, 1	# shift $v0 left by 1 bit (multiply by 2)
+	addu	$v0, $v0, $t0	# add $t0 to $v0
+	addi	$a0, $a0, 1	# increment input pointer
+	j	conversion_loop	# repeat loop
+
+done:
 	jr $ra
