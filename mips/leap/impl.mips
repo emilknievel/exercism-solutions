@@ -8,5 +8,28 @@
 
 .globl is_leap_year
 
+# leap year if divisible by 4 and not divisible by 100
+
 is_leap_year:
+	li	$t0, 4
+	li	$t1, 100
+	li	$t2, 400
+	li	$v0, 0
+
+	divu	$a0, $t0
+	mfhi	$t3
+	bnez	$t3, end	# Not divisible by 4, not a leap year
+
+	divu	$a0, $t1
+	mfhi	$t3
+	bnez	$t3, leap	# Not divisible by 100, leap year
+
+	divu	$a0, $t2
+	mfhi	$t3
+	bnez	$t3, end	# Divisible by 100 but not 400, not a leap year
+
+leap:
+	li 	$v0, 1
+
+end:
         jr $ra
