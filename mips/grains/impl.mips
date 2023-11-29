@@ -2,10 +2,28 @@
 # | -------- | --------- | ------- | -------------------------------- |
 # | `$a0`    | input     | integer | square number in the range 1..64 |
 # | `$v0`    | output    | integer | low 32 bits of output            |
-# | `$10`    | output    | integer | high 32 bits of output           |
+# | `$v1`    | output    | integer | high 32 bits of output           |
 # | `$t0-9`  | temporary | any     | for temporary storage            |
 
 .globl square
 
 square:
-        jr $ra
+	li	$t2, 1
+	li	$v0, 0
+	li	$v1, 0
+
+	ble	$a0, 0, done
+	bgt	$a0, 64, done
+	bgt	$a0, 32, high_bits
+
+	# low 32 bits
+	subi	$t1, $a0, 1
+	sllv	$v0, $t2, $t1
+	b	done
+
+high_bits:
+	# high 32 bits
+	subi	$t1, $a0, 33
+	sllv	$v1, $t2, $t1
+done:
+	jr	$ra
