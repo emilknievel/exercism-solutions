@@ -1,0 +1,3 @@
+# tests
+.busted
+*_spec.lua
