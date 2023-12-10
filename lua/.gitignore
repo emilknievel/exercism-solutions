@@ -1,3 +1,4 @@
 # tests
 .busted
 *_spec.lua
+assertions.lua
