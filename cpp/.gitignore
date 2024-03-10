@@ -1,0 +1,7 @@
+*
+!*/
+**/test
+!.gitignore
+!/**/*.h
+!/**/*.cpp
+**/*_test.cpp
