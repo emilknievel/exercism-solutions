@@ -1,4 +1,3 @@
-using System;
 using System.Text;
 
 public static class Identifier
@@ -10,31 +9,16 @@ public static class Identifier
 
         foreach (char c in identifier)
         {
-            if (c == ' ')
+            sb.Append(c switch
             {
-                sb.Append('_');
-                continue;
-            }
-
-            if (char.IsControl(c))
-            {
-                sb.Append("CTRL");
-                continue;
-            }
-
-            if (c == '-')
-            {
-                useUpper = true;
-                continue;
-            }
-
-            if (!char.IsLetter(c) || char.IsBetween(c, '\u03B1', '\u03C9'))
-            {
-                continue;
-            }
-
-            sb.Append(useUpper ? char.ToUpperInvariant(c) : c);
-            useUpper = false;
+                _ when char.IsWhiteSpace(c) => '_',
+                _ when char.IsControl(c) => "CTRL",
+                _ when useUpper => char.ToUpperInvariant(c),
+                _ when char.IsBetween(c, '\u03B1', '\u03C9') => default,
+                _ when char.IsLetter(c) => c,
+                _ => default
+            });
+            useUpper = c.Equals('-');
         }
 
         return sb.ToString();
