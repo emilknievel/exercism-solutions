@@ -8,31 +8,32 @@ public static class RomanNumeralExtension
         var stringValue = value.ToString();
         var sb = new StringBuilder();
 
-        for (int i = 0; i < stringValue.Length; i++)
+        var length = stringValue.Length;
+        for (int i = 0; i < length; i++)
         {
             var ones = "";
             var fives = "";
             var tens = "";
 
-            if (Number_IsOnes(i, stringValue.Length))
+            if (Number_IsOnes(i, length))
             {
                 ones = "I";
                 fives = "V";
                 tens = "X";
             }
-            else if (Number_IsTens(i, stringValue.Length))
+            else if (Number_IsTens(i, length))
             {
                 ones = "X";
                 fives = "L";
                 tens = "C";
             }
-            else if (Number_IsHundreds(i, stringValue.Length))
+            else if (Number_IsHundreds(i, length))
             {
                 ones = "C";
                 fives = "D";
                 tens = "M";
             }
-            else if (Number_IsThousands(i, stringValue.Length))
+            else if (Number_IsThousands(i, length))
             {
                 ones = "M";
             }
