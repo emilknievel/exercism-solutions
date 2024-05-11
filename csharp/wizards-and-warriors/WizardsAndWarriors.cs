@@ -20,10 +20,7 @@ class Wizard : Character
 
     public override int DamagePoints(Character target) => _spellPrepared ? 12 : 3;
 
-    public void PrepareSpell()
-    {
-        _spellPrepared = true;
-    }
+    public void PrepareSpell() => _spellPrepared = true;
 
     public override bool Vulnerable() => !_spellPrepared;
 }
