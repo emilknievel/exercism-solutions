@@ -1,16 +1,31 @@
-using System;
+using System.Collections.Generic;
+using System.Linq;
 
-// TODO: define the 'LogLevel' enum
+internal enum LogLevel
+{
+    Unknown = 0,
+    Trace = 1,
+    Debug = 2,
+    Info = 4,
+    Warning = 5,
+    Error = 6,
+    Fatal = 42,
+}
 
 static class LogLine
 {
-    public static LogLevel ParseLogLevel(string logLine)
+    private static readonly Dictionary<string, LogLevel> s_logLevelDict = new()
     {
-        throw new NotImplementedException("Please implement the (static) LogLine.ParseLogLevel() method");
-    }
+        { "[TRC]", LogLevel.Trace },
+        { "[DBG]", LogLevel.Debug },
+        { "[INF]", LogLevel.Info },
+        { "[WRN]", LogLevel.Warning },
+        { "[ERR]", LogLevel.Error },
+        { "[FTL]", LogLevel.Fatal },
+    };
 
-    public static string OutputForShortLog(LogLevel logLevel, string message)
-    {
-        throw new NotImplementedException("Please implement the (static) LogLine.OutputForShortLog() method");
-    }
+    public static LogLevel ParseLogLevel(string logLine) =>
+        s_logLevelDict.Keys.Where(logLine.StartsWith).Select(key => s_logLevelDict[key]).FirstOrDefault();
+
+    public static string OutputForShortLog(LogLevel logLevel, string message) => $"{(int)logLevel}:{message}";
 }
