@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using System.Linq;
 
 internal enum LogLevel
@@ -14,18 +13,16 @@ internal enum LogLevel
 
 static class LogLine
 {
-    private static readonly Dictionary<string, LogLevel> s_logLevelDict = new()
+    public static LogLevel ParseLogLevel(string logLine) => logLine[1..4] switch
     {
-        { "[TRC]", LogLevel.Trace },
-        { "[DBG]", LogLevel.Debug },
-        { "[INF]", LogLevel.Info },
-        { "[WRN]", LogLevel.Warning },
-        { "[ERR]", LogLevel.Error },
-        { "[FTL]", LogLevel.Fatal },
+        "TRC" => LogLevel.Trace,
+        "DBG" => LogLevel.Debug,
+        "INF" => LogLevel.Info,
+        "WRN" => LogLevel.Warning,
+        "ERR" => LogLevel.Error,
+        "FTL" => LogLevel.Fatal,
+        _ => LogLevel.Unknown
     };
-
-    public static LogLevel ParseLogLevel(string logLine) =>
-        s_logLevelDict.Keys.Where(logLine.StartsWith).Select(key => s_logLevelDict[key]).FirstOrDefault();
 
     public static string OutputForShortLog(LogLevel logLevel, string message) => $"{(int)logLevel}:{message}";
 }
