@@ -1,10 +1,13 @@
-using System;
-
 public class SecurityPassMaker
 {
-    public string GetDisplayName(TeamSupport support)
+    public string GetDisplayName(TeamSupport support) =>
+        support is Staff staff ? GetStaffDisplayName(staff) : "Too Important for a Security Pass";
+
+    private static string GetStaffDisplayName(Staff staff)
     {
-        throw new NotImplementedException($"Please implement the SecurityPassMaker.GetDisplayName() method");
+        string title = staff.Title;
+        if (staff.GetType() == typeof(Security)) title += " Priority Personnel";
+        return title;
     }
 }
 
