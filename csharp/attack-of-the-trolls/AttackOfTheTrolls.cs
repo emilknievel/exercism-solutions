@@ -10,10 +10,10 @@ enum AccountType
 [Flags]
 enum Permission : byte
 {
-    None = 0b00000000,
-    Read = 0b00000001,
-    Write = 0b00000010,
-    Delete = 0b00000100,
+    None = 0,
+    Read = 1 << 0,
+    Write = 1 << 1,
+    Delete = 1 << 2,
     All = Read | Write | Delete,
 }
 
