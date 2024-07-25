@@ -1,30 +1,25 @@
 using System;
+using System.Linq;
 
+[Flags]
 public enum Allergen
 {
-    Eggs,
-    Peanuts,
-    Shellfish,
-    Strawberries,
-    Tomatoes,
-    Chocolate,
-    Pollen,
-    Cats
+    Eggs         = 1 << 0,
+    Peanuts      = 1 << 1,
+    Shellfish    = 1 << 2,
+    Strawberries = 1 << 3,
+    Tomatoes     = 1 << 4,
+    Chocolate    = 1 << 5,
+    Pollen       = 1 << 6,
+    Cats         = 1 << 7
 }
 
-public class Allergies
+public class Allergies(int mask)
 {
-    public Allergies(int mask)
-    {
-    }
+    private readonly Allergen _mask = (Allergen)mask;
 
-    public bool IsAllergicTo(Allergen allergen)
-    {
-        throw new NotImplementedException("You need to implement this method.");
-    }
+    public bool IsAllergicTo(Allergen allergen) => _mask.HasFlag(allergen);
 
-    public Allergen[] List()
-    {
-        throw new NotImplementedException("You need to implement this method.");
-    }
+    public Allergen[] List() =>
+        Enum.GetValuesAsUnderlyingType(typeof(Allergen)).Cast<Allergen>().Where(IsAllergicTo).ToArray();
 }
