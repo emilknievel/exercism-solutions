@@ -1,12 +1,22 @@
 using System;
 
-class WeighingMachine
+class WeighingMachine(int precision)
 {
-    // TODO: define the 'Precision' property
+    private double _weight;
 
-    // TODO: define the 'Weight' property
+    public int Precision { get; } = precision;
 
-    // TODO: define the 'DisplayWeight' property
+    public double Weight
+    {
+        get => _weight;
+        set
+        {
+            ArgumentOutOfRangeException.ThrowIfNegative(value);
+            _weight = value;
+        }
+    }
 
-    // TODO: define the 'TareAdjustment' property
+    public double TareAdjustment { get; set; } = 5.0;
+
+    public string DisplayWeight => $"{(_weight - TareAdjustment).ToString($"n{Precision}")} kg";
 }
