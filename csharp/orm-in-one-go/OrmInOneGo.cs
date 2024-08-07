@@ -1,21 +1,25 @@
 using System;
 
-public class Orm
+public class Orm(Database database)
 {
-    private Database database;
-
-    public Orm(Database database)
-    {
-        this.database = database;
-    }
-
     public void Write(string data)
     {
-        throw new NotImplementedException($"Please implement the Orm.Write() method");
+        using var db = database;
+        db.BeginTransaction();
+        db.Write(data);
+        db.EndTransaction();
     }
 
     public bool WriteSafely(string data)
     {
-        throw new NotImplementedException($"Please implement the Orm.WriteSafely() method");
+        try
+        {
+            Write(data);
+            return true;
+        }
+        catch (Exception)
+        {
+            return false;
+        }
     }
 }
