@@ -6,11 +6,10 @@ public class LogParser
 {
     public bool IsValidLine(string text) => Regex.IsMatch(text, @"^\[(TRC|DBG|INF|WRN|ERR|FTL)\]");
 
-    public string[] SplitLogLine(string text) => Regex.Split(text, @"<=*-*\^*\**>");
+    public string[] SplitLogLine(string text) => Regex.Split(text, "<[*^=-]*>");
 
-    public int CountQuotedPasswords(string lines) => Regex.Matches(lines, """
-                                                                          ".*?password.*?"
-                                                                          """, RegexOptions.IgnoreCase).Count;
+    public int CountQuotedPasswords(string lines) =>
+        Regex.Matches(lines, @""".*?password.*?""", RegexOptions.IgnoreCase | RegexOptions.Multiline).Count;
 
     public string RemoveEndOfLineText(string line) => Regex.Replace(line, @"end-of-line\d+", "");
 
