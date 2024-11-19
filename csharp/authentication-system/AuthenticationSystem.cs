@@ -1,19 +1,20 @@
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 public class Authenticator
 {
     private class EyeColor
     {
-        public string Blue = "blue";
-        public string Green = "green";
-        public string Brown = "brown";
-        public string Hazel = "hazel";
-        public string Grey = "grey";
+        public const string Blue = "blue";
+        public const string Green = "green";
+        public const string Brown = "brown";
+        public const string Hazel = "hazel";
+        public const string Grey = "grey";
     }
 
     public Authenticator(Identity admin)
     {
-        this.admin = admin;
+        Admin = admin;
     }
 
     private Identity admin;
@@ -34,21 +35,14 @@ public class Authenticator
             }
         };
 
-    public Identity Admin
-    {
-        get { return admin; }
-        set { admin = value; }
-    }
+    public Identity Admin { get; }
 
-    public IDictionary<string, Identity> GetDevelopers()
-    {
-        return developers;
-    }
+    public IDictionary<string, Identity> GetDevelopers() => new ReadOnlyDictionary<string, Identity>(developers);
 }
 
 public struct Identity
 {
     public string Email { get; set; }
 
-    public string EyeColor { get; set; }
+    public string EyeColor { get; init; }
 }
