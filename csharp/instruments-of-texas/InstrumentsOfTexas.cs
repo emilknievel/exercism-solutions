@@ -2,9 +2,10 @@ using System;
 
 public class CalculationException : Exception
 {
-    public CalculationException(int operand1, int operand2, string message, Exception inner)
-    // TODO: complete the definition of the constructor
+    public CalculationException(int operand1, int operand2, string message, Exception inner) : base(message, inner)
     {
+        Operand1 = operand1;
+        Operand2 = operand2;
     }
 
     public int Operand1 { get; }
@@ -22,12 +23,29 @@ public class CalculatorTestHarness
 
     public string TestMultiplication(int x, int y)
     {
-        throw new NotImplementedException("Please implement the CalculatorTestHarness.TestMultiplication() method");
+        try
+        {
+            Multiply(x, y);
+            return "Multiply succeeded";
+        }
+        catch (CalculationException e)
+        {
+            return e.Operand1 < 0 && e.Operand2 < 0
+                ? $"Multiply failed for negative operands. {e.InnerException.Message}"
+                : $"Multiply failed for mixed or positive operands. {e.InnerException.Message}";
+        }
     }
 
     public void Multiply(int x, int y)
     {
-        throw new NotImplementedException("Please implement the CalculatorTestHarness.Multiply() method");
+        try
+        {
+            calculator.Multiply(x, y);
+        }
+        catch (OverflowException e)
+        {
+            throw new CalculationException(x, y, e.Message, e);
+        }
     }
 }
 
