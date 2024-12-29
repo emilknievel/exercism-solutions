@@ -1,48 +1,31 @@
-using System;
+using System.Collections.Generic;
 
-public class SpaceAge
+public class SpaceAge(int seconds)
 {
-    public SpaceAge(int seconds)
+    private readonly Dictionary<string, double> _orbitalPeriods = new()
     {
-    }
+        { "Mercury", 0.2408467 },
+        { "Venus", 0.61519726 },
+        { "Mars", 1.8808158 },
+        { "Jupiter", 11.862615 },
+        { "Saturn", 29.447498 },
+        { "Uranus", 84.016846 },
+        { "Neptune", 164.79132 },
+    };
 
-    public double OnEarth()
-    {
-        throw new NotImplementedException("You need to implement this method.");
-    }
+    public double OnEarth() => seconds / 31_557_600.0;
 
-    public double OnMercury()
-    {
-        throw new NotImplementedException("You need to implement this method.");
-    }
+    public double OnMercury() => OnEarth() / _orbitalPeriods["Mercury"];
 
-    public double OnVenus()
-    {
-        throw new NotImplementedException("You need to implement this method.");
-    }
+    public double OnVenus() => OnEarth() / _orbitalPeriods["Venus"];
 
-    public double OnMars()
-    {
-        throw new NotImplementedException("You need to implement this method.");
-    }
+    public double OnMars() => OnEarth() / _orbitalPeriods["Mars"];
 
-    public double OnJupiter()
-    {
-        throw new NotImplementedException("You need to implement this method.");
-    }
+    public double OnJupiter() => OnEarth() / _orbitalPeriods["Jupiter"];
 
-    public double OnSaturn()
-    {
-        throw new NotImplementedException("You need to implement this method.");
-    }
+    public double OnSaturn() => OnEarth() / _orbitalPeriods["Saturn"];
 
-    public double OnUranus()
-    {
-        throw new NotImplementedException("You need to implement this method.");
-    }
+    public double OnUranus() => OnEarth() / _orbitalPeriods["Uranus"];
 
-    public double OnNeptune()
-    {
-        throw new NotImplementedException("You need to implement this method.");
-    }
+    public double OnNeptune() => OnEarth() / _orbitalPeriods["Neptune"];
 }
